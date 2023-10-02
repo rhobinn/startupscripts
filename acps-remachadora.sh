@@ -15,6 +15,7 @@ function download_from_repository {
     echo "please copy GITHUB_TOKEN: ???"
     echo ""
 
+    # create token: https://github.com/settings/tokens?type=beta
     read GITHUB_TOKEN
 
     #set directories
