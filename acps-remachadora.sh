@@ -49,7 +49,9 @@ function new_rpi_preparation {
 
     #install pip
     sudo apt update
+    sudo apt upgrade
     sudo apt install pip
+    sudo pip3 install --upgrade pip
 
     #install python & pip
     sudo apt-get install -y libffi-dev libssl-dev
@@ -65,6 +67,9 @@ function new_rpi_preparation {
 
     #install docker compose
     sudo pip3 install docker-compose
+    #sudo apt install docker-compose
+
+
 
     #enable launching of docker compose when starting system
     sudo systemctl enable docker
