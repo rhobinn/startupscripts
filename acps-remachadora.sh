@@ -2,7 +2,8 @@ echo ""
 echo "Select an option number:"
 echo "1) download code"
 echo "2) install docker compose + configure locales"
-echo "3) ALL"
+echo "3) add USB permissions"
+echo "4) ALL"
 
 
 
@@ -70,7 +71,6 @@ function new_rpi_preparation {
     #sudo apt install docker-compose
 
 
-
     #enable launching of docker compose when starting system
     sudo systemctl enable docker
 
@@ -80,6 +80,14 @@ function new_rpi_preparation {
     docker run hello-world
 }
 
+function usb_preparation {
+    #add udevrules for usb devices
+    echo 'SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE="0660", SYMLINK+="ttyUSBrem"' | sudo tee /etc/udev/rules.d/88-usb-serial.rules > /dev/null
+
+    #add user to dialout group
+    sudo usermod -aG dialout ${USER}
+
+}
 
 read USER_OPTION
 
@@ -94,9 +102,15 @@ case $USER_OPTION in
     ;;
 
   3)
+    usb_preparation
+    ;;
+
+  4)
     download_from_repository
     new_rpi_preparation
+    usb_preparation
     ;;
+  
 
   *)
     echo ""
